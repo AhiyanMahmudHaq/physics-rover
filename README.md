@@ -1,3 +1,4 @@
 # The Physics Rover
 The PhysicsRover is individual school project founded by Ahiyan Mahmud Haq, who is a student of HURDCO International School, reading in Grade VI (6). My mission when inaugurating this project is to procure a robust, functional design of a 4-wheeled, Bluetooth Low Energy controlled vehicle (althogh sub-optimal, is ideal for learning the basics of unmanned control) which can traverse harsh terrain to retrieve test specimen in dangerous environments.
 It is intended as a way to expose myself to the demanding challenges of engineering before I sign up for the Bangladesh Robot Olympiad for the first time. I also inaugurated this project to improve in the skills that I will use very frequently throughout my lifetime, such as writing, digital organization, etcetera. 
+<img width="1470" height="648" alt="image" src="https://github.com/user-attachments/assets/838dbf08-e070-4759-be22-e27bd9e45cd2" />
