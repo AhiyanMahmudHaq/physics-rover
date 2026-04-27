@@ -4,4 +4,5 @@ It is intended as a way to expose myself to the demanding challenges of engineer
 
 <img width="1857" height="1040" alt="image" src="https://github.com/user-attachments/assets/c7b38968-53a9-4502-8af4-9e1d5325d4d4" />
 
-<img width="1857" height="1040" alt="image" src="https://github.com/user-attachments/assets/cca4d287-27f5-4ad2-97da-61dad8fe7d05" />
+<img width="1209" height="708" alt="The PhysicsRover Project" src="https://github.com/user-attachments/assets/061f313d-279a-47b4-ae7c-a8b282b5da05" />
+
