@@ -3,3 +3,5 @@ The PhysicsRover is individual school project founded by Ahiyan Mahmud Haq, who 
 It is intended as a way to expose myself to the demanding challenges of engineering before I sign up for the Bangladesh Robot Olympiad for the first time. I also inaugurated this project to improve in the skills that I will use very frequently throughout my lifetime, such as writing, digital organization, etcetera. 
 
 <img width="1857" height="1040" alt="image" src="https://github.com/user-attachments/assets/c7b38968-53a9-4502-8af4-9e1d5325d4d4" />
+
+<img width="1857" height="1040" alt="image" src="https://github.com/user-attachments/assets/cca4d287-27f5-4ad2-97da-61dad8fe7d05" />
