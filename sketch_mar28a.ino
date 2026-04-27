@@ -1,25 +1,30 @@
 #include <Servo.h>
 
-// Pin Definitions
+// L293D Control Pins
+const int motorEnable = 3; // PWM Pin for speed (optional)
+const int motorIn1 = 5;    // Logic Forward
+const int motorIn2 = 6;    // Logic Backward
+
+// Sensor & Servo Pins
 const int trigPin = 9;
 const int echoPin = 10;
 const int servoPin = 11;
-const int motorPin1 = 5; // Left Motor Forward
-const int motorPin2 = 6; // Left Motor Backward
 
 Servo steeringServo;
 char command;
 bool autoMode = false;
 
 void setup() {
-  Serial.begin(9600); // Bluetooth default baud rate
+  Serial.begin(9600);
+  pinMode(motorIn1, OUTPUT);
+  pinMode(motorIn2, OUTPUT);
+  pinMode(motorEnable, OUTPUT);
   pinMode(trigPin, OUTPUT);
   pinMode(echoPin, INPUT);
-  pinMode(motorPin1, OUTPUT);
-  pinMode(motorPin2, OUTPUT);
   
+  digitalWrite(motorEnable, HIGH); // Set motor to full speed
   steeringServo.attach(servoPin);
-  steeringServo.write(90); // Center the steering
+  steeringServo.write(90); // Center steering
 }
 
 void loop() {
@@ -35,52 +40,47 @@ void loop() {
 
 void executeCommand(char cmd) {
   switch (cmd) {
-    case 'F': moveForward(); break;
-    case 'B': moveBackward(); break;
-    case 'L': steerLeft(); break;
-    case 'R': steerRight(); break;
-    case 'S': stopMotors(); break;
-    case 'W': autoMode = true; break;  // Toggle Auto-Avoidance ON
-    case 'w': autoMode = false; break; // Toggle Auto-Avoidance OFF
+    case 'F': forward(); break;
+    case 'B': backward(); break;
+    case 'S': stopRover(); break;
+    case 'L': steeringServo.write(60);  break; // Turn Left
+    case 'R': steeringServo.write(120); break; // Turn Right
+    case 'C': steeringServo.write(90);  break; // Center
+    case 'W': autoMode = true; break;
+    case 'w': autoMode = false; break;
   }
 }
 
-long getDistance() {
+void forward() {
+  digitalWrite(motorIn1, HIGH);
+  digitalWrite(motorIn2, LOW);
+}
+
+void backward() {
+  digitalWrite(motorIn1, LOW);
+  digitalWrite(motorIn2, HIGH);
+}
+
+void stopRover() {
+  digitalWrite(motorIn1, LOW);
+  digitalWrite(motorIn2, LOW);
+}
+
+void checkObstacles() {
+  long duration, distance;
   digitalWrite(trigPin, LOW);
   delayMicroseconds(2);
   digitalWrite(trigPin, HIGH);
   delayMicroseconds(10);
   digitalWrite(trigPin, LOW);
-  long duration = pulseIn(echoPin, HIGH);
-  return duration * 0.034 / 2;
-}
+  duration = pulseIn(echoPin, HIGH);
+  distance = duration * 0.034 / 2;
 
-void checkObstacles() {
-  if (getDistance() < 20) {
-    stopMotors();
-    // Simple logic: If blocked, reverse slightly
-    moveBackward();
+  if (distance < 25 && distance > 0) {
+    stopRover();
+    delay(200);
+    backward();
     delay(500);
-    stopMotors();
+    stopRover();
   }
 }
-
-// Movement Functions
-void moveForward() {
-  digitalWrite(motorPin1, HIGH);
-  digitalWrite(motorPin2, LOW);
-}
-
-void moveBackward() {
-  digitalWrite(motorPin1, LOW);
-  digitalWrite(motorPin2, HIGH);
-}
-
-void stopMotors() {
-  digitalWrite(motorPin1, LOW);
-  digitalWrite(motorPin2, LOW);
-}
-
-void steerLeft() { steeringServo.write(45); }
-void steerRight() { steeringServo.write(135); }
-void steerCenter() { steeringServo.write(90); }
